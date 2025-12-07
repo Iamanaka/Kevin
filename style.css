@@ -1,0 +1,38 @@
+/* Arquivo: style.css 
+   Importe este arquivo no seu HTML usando: <link rel="stylesheet" href="style.css">
+*/
+
+/* Custom Scrollbar - Barra de rolagem personalizada */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0a; /* dark-900 */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2d2d2d; /* dark-600 */
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b91c1c; /* brand-700 (Vermelho) */
+}
+
+/* Utilitários Extras */
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Efeito de Hover nos Cards */
+.card-hover {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 40px -10px rgba(185, 28, 28, 0.2); /* Sombra vermelha suave */
+}
