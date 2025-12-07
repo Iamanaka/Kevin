@@ -70,7 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             const card = button.closest('.group');
             const name = card.querySelector('h3').innerText;
-            const priceText = card.querySelector('.text-brand-500').innerText;
+            
+            // CORREÇÃO AQUI: Mudamos de '.text-brand-500' para 'span.text-brand-500'
+            // Isso garante que ele pegue o PREÇO e não a estrelinha do Chef's Choice
+            const priceText = card.querySelector('span.text-brand-500').innerText;
+            
             const imageSrc = card.querySelector('img').src; 
             const price = parseFloat(priceText.replace('R$', '').replace(',', '.').trim());
 
@@ -191,42 +195,42 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(whatsappUrl, '_blank');
     }
 
-    // --- 6. FILTRO DE CATEGORIAS (ATUALIZADO) ---
-    // Agora usa data-filter no botão e data-categoria no card
-    const categoryButtons = document.querySelectorAll('.flex.flex-wrap.justify-center.gap-3 button');
+    // --- 6. FILTRO DE CATEGORIAS ---
+    const categoryButtons = document.querySelectorAll('.flex.flex-wrap.justify-center.gap-2 button'); // Ajustei o seletor para gap-2 também
     const productCards = document.querySelectorAll('main .group');
 
     const activeClass = 'px-6 py-2 bg-brand-800 text-white rounded-full font-medium border border-brand-700 shadow-lg shadow-brand-900/50 hover:bg-brand-700 transition-all transform active:scale-95';
+    // Nota: O seletor abaixo precisa ser flexível para manter as classes responsivas do HTML se você mudou algo lá, 
+    // mas aqui vou manter a lógica de troca de classes para garantir o destaque.
     const inactiveClass = 'px-6 py-2 bg-dark-800 text-dark-400 rounded-full font-medium border border-dark-700 hover:text-white hover:border-dark-600 transition-all';
 
     categoryButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
-            // 1. Reseta visual dos botões
-            categoryButtons.forEach(b => b.className = inactiveClass);
-            e.currentTarget.className = activeClass;
+            // Reset visual simples (mantendo dimensões fixas do JS para simplificar, idealmente usar classes do HTML)
+            categoryButtons.forEach(b => {
+                b.classList.remove('bg-brand-800', 'text-white', 'shadow-lg', 'shadow-brand-900/50', 'border-brand-700');
+                b.classList.add('bg-dark-800', 'text-dark-400', 'border-dark-700');
+            });
+            
+            const clicked = e.currentTarget;
+            clicked.classList.remove('bg-dark-800', 'text-dark-400', 'border-dark-700');
+            clicked.classList.add('bg-brand-800', 'text-white', 'shadow-lg', 'shadow-brand-900/50', 'border-brand-700');
 
-            // 2. Pega a categoria desejada pelo atributo data-filter
-            const selectedCategory = e.currentTarget.getAttribute('data-filter');
+            const selectedCategory = clicked.getAttribute('data-filter');
 
-            // 3. Filtra os produtos
             productCards.forEach(card => {
                 const productCategory = card.getAttribute('data-categoria');
 
                 if (selectedCategory === 'torta') {
-                    // Se clicou em Torta, mostra Torta (e Temporada opcionalmente, mas vamos ser estritos)
                     if (productCategory === 'torta') card.style.display = 'flex';
                     else card.style.display = 'none';
-
                 } else if (selectedCategory === 'pudim') {
                     if (productCategory === 'pudim') card.style.display = 'flex';
                     else card.style.display = 'none';
-
                 } else if (selectedCategory === 'temporada') {
                     if (productCategory === 'temporada') card.style.display = 'flex';
                     else card.style.display = 'none';
-                    
                 } else {
-                    // Fallback para mostrar tudo
                     card.style.display = 'flex';
                 }
             });
