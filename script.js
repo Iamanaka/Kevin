@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        let message = "*Olá Kevin França! Gostaria de fazer o seguinte pedido:*\n\n";
+        let message = "*Olá! Gostaria de fazer o seguinte pedido:*\n\n";
         cart.forEach(item => {
             message += `▪️ ${item.name} - R$ ${item.price.toFixed(2).replace('.', ',')}\n`;
         });
